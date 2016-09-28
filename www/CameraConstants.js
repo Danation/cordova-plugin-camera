@@ -39,7 +39,9 @@ module.exports = {
     /** Return file uri (content://media/external/images/media/2 for Android) */
     FILE_URI: 1,
     /** Return native uri (eg. asset-library://... for iOS) */
-    NATIVE_URI: 2
+    NATIVE_URI: 2,
+    /** Return array buffer of raw data. ARRAY_BUFFER is more efficient than DATA_URL, but it still can be very memory intensive and cause app crashes or out of memory errors. Use FILE_URI or NATIVE_URI if possible */
+    ARRAY_BUFFER: 3
   },
   /**
    * @enum {number}

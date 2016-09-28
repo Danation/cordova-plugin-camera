@@ -147,7 +147,7 @@ static NSString* toBase64(NSData* data) {
         CDVPictureOptions* pictureOptions = [CDVPictureOptions createFromTakePictureArguments:command];
         pictureOptions.popoverSupported = [weakSelf popoverSupported];
         pictureOptions.usesGeolocation = [weakSelf usesGeolocation];
-        pictureOptions.cropToSize = NO;
+        pictureOptions.cropToSize = YES;
         
         BOOL hasCamera = [UIImagePickerController isSourceTypeAvailable:pictureOptions.sourceType];
         if (!hasCamera) {
@@ -418,6 +418,13 @@ static NSString* toBase64(NSData* data) {
     
     if (options.correctOrientation) {
         image = [image imageCorrectedForCaptureOrientation];
+    }
+    
+    if (image.size.width < image.size.height) {
+    	CGSize desiredSize = options.targetSize;
+    	desiredSize.height = options.targetSize.width;
+    	desiredSize.width = options.targetSize.height;
+    	options.targetSize = desiredSize;
     }
     
     UIImage* scaledImage = nil;
